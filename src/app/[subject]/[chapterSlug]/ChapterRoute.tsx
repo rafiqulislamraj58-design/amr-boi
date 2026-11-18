@@ -1,9 +1,6 @@
-
 import { notFound } from 'next/navigation';
-
 import { SUBJECTS_DATA } from '@/data/subjectsData';
 import type { SubjectId } from '@/types/curriculum';
-
 import ChapterLearningClient from './ChapterLearningClient';
 
 interface ChapterRouteProps {
@@ -13,32 +10,28 @@ interface ChapterRouteProps {
   }>;
 }
 
-export default async function ChapterRoute({
-  params,
-}: ChapterRouteProps) {
-  // Runtime params are accessed inside Suspense
-  const { subject: subjectParam, chapterSlug } = await params;
+export default async function ChapterRoute({ params }: ChapterRouteProps) {
+  const resolvedParams = await params;
 
-  // Validate subject
-  const subject = SUBJECTS_DATA[subjectParam as SubjectId];
-
-  if (!subject) {
+  if (!resolvedParams?.subject || !resolvedParams?.chapterSlug) {
     notFound();
   }
 
-  // Find requested chapter
-  const chapter = subject.chapters.find(
-    (item) => item.slug === chapterSlug
-  );
+  const { subject: subjectParam, chapterSlug } = resolvedParams;
+
+  // Validate subject ID
+  if (!(subjectParam in SUBJECTS_DATA)) {
+    notFound();
+  }
+
+  const subject = SUBJECTS_DATA[subjectParam as SubjectId];
+
+  // Find requested chapter by slug
+  const chapter = subject.chapters.find((item) => item.slug === chapterSlug);
 
   if (!chapter) {
     notFound();
   }
 
-  return (
-    <ChapterLearningClient
-      subject={subject}
-      chapter={chapter}
-    />
-  );
+  return <ChapterLearningClient subject={subject} chapter={chapter} />;
 }

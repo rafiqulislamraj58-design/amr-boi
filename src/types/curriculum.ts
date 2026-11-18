@@ -26,3 +26,12 @@ export interface Subject {
   buttonClass: string;
   chapters: Chapter[];
 }
+export interface QuizQuestion {
+  id: string;
+  question: string;
+  formulaLatex?: string; 
+  options: [string, string, string, string];
+  correctIndex: 0 | 1 | 2 | 3;
+  topicTag: string;
+  explanation: string;
+}
