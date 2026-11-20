@@ -63,6 +63,43 @@ const HeatChapterView = dynamic(
   { loading: () => <SectionLoader /> },
 );
 
+//
+const WavesAndSoundChapterView = dynamic(
+  () => import("@/features/physics/waves-and-sound/WavesAndSoundChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+//
+const ReflectionOfLightChapterView = dynamic(
+  () =>
+    import("@/features/physics/reflection-of-light/ReflectionOfLightChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+
+
+const StaticElectricityChapterView = dynamic(
+  () => import("@/features/physics/static-electricity/StaticElectricityChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+
+// 
+const CurrentElectricityChapterView = dynamic(
+  () => import("@/features/physics/current-electricity/CurrentElectricityChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+// 
+const MagneticEffectsChapterView = dynamic(
+  () => import("@/features/physics/magnetic-effects/MagneticEffectsChapterView"),
+  { loading: () => <SectionLoader /> },
+  
+);
+// 
+const ModernPhysicsChapterView = dynamic(
+  () => import("@/features/physics/modern-physics/ModernPhysicsChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
 // ============================================
 // CHEMISTRY CHAPTER VIEWS
 // ============================================
@@ -101,6 +138,7 @@ const MoleConceptChapterView = dynamic(
   () => import("@/features/chemistry/mole-concept/MoleConceptChapterView"),
   { loading: () => <SectionLoader /> },
 );
+//
 
 // ============================================
 // INTERACTIVE PHYSICS LABS
@@ -136,6 +174,59 @@ const HeatSimulationLab = dynamic(
   { loading: () => <SectionLoader />, ssr: false },
 );
 
+const ReflectionOfLightLab = dynamic(
+  () => import("@/features/physics/reflection-of-light/ReflectionOfLightLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+// 
+const RefractionOfLightLab = dynamic(
+  () => import("@/features/physics/refraction-of-light/RefractionOfLightLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+
+
+const RefractionOfLightChapterView = dynamic(
+  () =>
+    import("@/features/physics/refraction-of-light/RefractionOfLightChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+
+
+// 
+const StaticElectricityLab = dynamic(
+  () => import("@/features/physics/static-electricity/StaticElectricityLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+// 
+const CurrentElectricityLab = dynamic(
+  () => import("@/features/physics/current-electricity/CurrentElectricityLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+// 
+const MagneticEffectsLab = dynamic(
+  () => import("@/features/physics/magnetic-effects/MagneticEffectsLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+// 
+const ModernPhysicsLab = dynamic(
+  () => import("@/features/physics/modern-physics/ModernPhysicsLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+// 
+const PhysicsToSaveLifeChapterView = dynamic(
+  () => import("@/features/physics/physics-to-save-life/PhysicsToSaveLifeChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+// 
+const PhysicsToSaveLifeLab = dynamic(
+  () => import("@/features/physics/physics-to-save-life/PhysicsToSaveLifeLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+
+
 // ============================================
 // CHEMISTRY & BIOLOGY LABS
 // ============================================
@@ -166,6 +257,11 @@ const ChemicalBondingLab = dynamic(
 //
 const MoleConceptLab = dynamic(
   () => import("@/features/chemistry/mole-concept/MoleConceptLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+//
+const WavesAndSoundLab = dynamic(
+  () => import("@/features/physics/waves-and-sound/WavesAndSoundLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
 
@@ -265,6 +361,41 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
       case "effect-of-heat-on-matter":
       case "effects-of-heat-on-matter":
         return <HeatChapterView />;
+      //
+
+      case "waves-and-sound":
+      case "wave-and-sound":
+      case "waves":
+        return <WavesAndSoundChapterView />;
+      //
+      case "reflection-of-light":
+      case "light-reflection":
+        return <ReflectionOfLightChapterView />;
+      //
+      case "refraction-of-light":
+      case "light-refraction":
+        return <RefractionOfLightChapterView />;
+        // 
+        case "static-electricity":
+      case "electrostatics":
+        return <StaticElectricityChapterView />;
+        // 
+        case "current-electricity":
+      case "electricity":
+        return <CurrentElectricityChapterView />;
+        // 
+         case "magnetic-effects":
+      case "magnetic-effects-of-current":
+      case "magnetic-effect-of-current":
+        return <MagneticEffectsChapterView />;
+        case "modern-physics":
+      case "modern-physics-and-electronics":
+        return <ModernPhysicsChapterView />;
+        // 
+        case "physics-to-save-life":
+      case "life-and-physics":
+        return <PhysicsToSaveLifeChapterView />;
+        // 
 
       // Chemistry
       case "concept-of-chemistry":
@@ -285,7 +416,7 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
       case "chemical-bond":
         return <ChemicalBondingChapterView />;
 
-    case "mole-concept":
+      case "mole-concept":
       case "concept-of-mole":
       case "concept-of-mole-and-chemical-counting":
       case "mole-concept-and-chemical-calculations":
@@ -340,6 +471,36 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
       case "effect-of-heat-on-matter":
       case "effects-of-heat-on-matter":
         return <HeatSimulationLab />;
+      //
+      case "reflection-of-light":
+      case "light-reflection":
+        return <ReflectionOfLightLab />;
+      //
+      case "refraction-of-light":
+      case "light-refraction":
+        return <RefractionOfLightLab />;
+        // 
+case "static-electricity":
+      case "electrostatics":
+        return <StaticElectricityLab />;
+        // 
+        case "current-electricity":
+      case "electricity":
+        return <CurrentElectricityLab />;
+        // 
+        case "magnetic-effects":
+      case "magnetic-effects-of-current":
+      case "magnetic-effect-of-current":
+        return <MagneticEffectsLab />;
+        // 
+        case "modern-physics":
+      case "modern-physics-and-electronics":
+        return <ModernPhysicsLab />;
+        // 
+        case "physics-to-save-life":
+      case "life-and-physics":
+        return <PhysicsToSaveLifeLab />;
+       
 
       // Chemistry
       case "concept-of-chemistry":
@@ -360,11 +521,17 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
       case "chemical-bond":
         return <ChemicalBondingLab />;
 
-     case "mole-concept":
+      case "mole-concept":
       case "concept-of-mole":
       case "concept-of-mole-and-chemical-counting":
       case "mole-concept-and-chemical-calculations":
         return <MoleConceptLab />;
+
+      //
+      case "waves-and-sound":
+      case "wave-and-sound":
+      case "waves":
+        return <WavesAndSoundLab />;
 
       // Biology
       case "cells-and-tissues":
