@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -39,6 +38,27 @@ interface Props {
 }
 
 type QuizMode = 'quick10' | 'full25';
+
+interface QuestionTopic {
+  topicTag?: string;
+  topic?: string;
+}
+
+// ============================================
+// HELPERS
+// ============================================
+
+/**
+ * Supports both the new topicTag field
+ * and the legacy topic field.
+ */
+const getQuestionTopic = (question: QuestionTopic): string => {
+  return (
+    question.topicTag?.trim() ||
+    question.topic?.trim() ||
+    'অন্যান্য'
+  );
+};
 
 // ============================================
 // COMPONENT
@@ -104,21 +124,19 @@ export default function ChapterQuizEngine({
 
   if (activeQuestions.length === 0) {
     return (
-      <div className="bg-white rounded-2xl p-8 border border-slate-200 max-w-2xl mx-auto text-center space-y-3">
-
-        <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center mx-auto">
-          <HelpCircle className="w-6 h-6" />
+      <div className="mx-auto max-w-2xl space-y-3 rounded-2xl border border-slate-200 bg-white p-8 text-center">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-500">
+          <HelpCircle className="h-6 w-6" />
         </div>
 
         <h3 className="text-lg font-bold text-slate-800">
           এই অধ্যায়ের MCQ প্রশ্নব্যাংক প্রস্তুত হচ্ছে
         </h3>
 
-        <p className="text-sm text-slate-500 max-w-md mx-auto">
+        <p className="mx-auto max-w-md text-sm text-slate-500">
           খুব শীঘ্রই এই অধ্যায়ের গুরুত্বপূর্ণ বোর্ড-স্ট্যান্ডার্ড
           বহুনির্বাচনি প্রশ্ন ও ব্যাখ্যা যুক্ত করা হবে।
         </p>
-
       </div>
     );
   }
@@ -128,6 +146,8 @@ export default function ChapterQuizEngine({
   // ==========================================
 
   const currentQ = activeQuestions[currentIdx];
+
+  const currentTopic = getQuestionTopic(currentQ);
 
   const totalQuestions = activeQuestions.length;
 
@@ -156,9 +176,9 @@ export default function ChapterQuizEngine({
       setScore((prev) => prev + 1);
     } else {
       setWeakTopics((prev) =>
-        prev.includes(currentQ.topicTag)
+        prev.includes(currentTopic)
           ? prev
-          : [...prev, currentQ.topicTag]
+          : [...prev, currentTopic]
       );
     }
   };
@@ -181,22 +201,23 @@ export default function ChapterQuizEngine({
     // LAST QUESTION
     // ========================================
 
-    // Final score includes the answer just selected.
-    // State updates may not have been reflected yet.
+    const isLastAnswerCorrect =
+      selectedOption === currentQ.correctIndex;
+
     const finalScore =
-      score + (selectedOption === currentQ.correctIndex ? 1 : 0);
+      score + (isLastAnswerCorrect ? 1 : 0);
 
-    const finalWeakTopics =
-      selectedOption === currentQ.correctIndex
-        ? weakTopics
-        : Array.from(new Set([...weakTopics, currentQ.topicTag]));
+    const finalWeakTopics = isLastAnswerCorrect
+      ? weakTopics
+      : Array.from(new Set([...weakTopics, currentTopic]));
 
-    // Show result immediately
+    // Update final score and result
+    setScore(finalScore);
+    setWeakTopics(finalWeakTopics);
     setIsFinished(true);
-
-    // Save result in background
     setIsSaving(true);
 
+    // Save result
     try {
       await saveQuizResult(
         chapterSlug,
@@ -222,15 +243,10 @@ export default function ChapterQuizEngine({
     }
 
     setCurrentIdx(0);
-
     setSelectedOption(null);
-
     setScore(0);
-
     setWeakTopics([]);
-
     setIsFinished(false);
-
     setIsSaving(false);
   };
 
@@ -240,17 +256,11 @@ export default function ChapterQuizEngine({
 
   const handleModeChange = (mode: QuizMode) => {
     setQuizMode(mode);
-
     setCurrentIdx(0);
-
     setSelectedOption(null);
-
     setScore(0);
-
     setWeakTopics([]);
-
     setIsFinished(false);
-
     setIsSaving(false);
   };
 
@@ -260,21 +270,20 @@ export default function ChapterQuizEngine({
 
   if (isFinished) {
     return (
-      <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 max-w-2xl mx-auto text-center space-y-6">
-
-        {/* Result Icon */}
+      <div className="mx-auto max-w-2xl space-y-6 rounded-2xl border border-slate-200 bg-white p-6 text-center sm:p-8">
+        {/* RESULT ICON */}
 
         <div
-          className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto ${
+          className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${
             isPassed
               ? 'bg-emerald-100 text-emerald-600'
               : 'bg-amber-100 text-amber-600'
           }`}
         >
-          <Award className="w-9 h-9" />
+          <Award className="h-9 w-9" />
         </div>
 
-        {/* Result Heading */}
+        {/* RESULT HEADING */}
 
         <div>
           <h3 className="text-2xl font-bold text-slate-900">
@@ -283,37 +292,33 @@ export default function ChapterQuizEngine({
               : 'কুইজ সম্পন্ন হয়েছে!'}
           </h3>
 
-          <p className="text-slate-500 text-sm mt-1">
+          <p className="mt-1 text-sm text-slate-500">
             {isSaving
               ? 'তোমার ফলাফল সংরক্ষণ করা হচ্ছে...'
               : 'তোমার কুইজের ফলাফল প্রস্তুত।'}
           </p>
         </div>
 
-        {/* Score Cards */}
+        {/* SCORE CARDS */}
 
-        <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
-
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-
+        <div className="mx-auto grid max-w-sm grid-cols-2 gap-4">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
             <span className="text-xs text-slate-500">
               প্রাপ্ত স্কোর
             </span>
 
-            <p className="text-2xl font-bold text-slate-900 font-sans">
+            <p className="font-sans text-2xl font-bold text-slate-900">
               {score} / {totalQuestions}
             </p>
-
           </div>
 
           <div
-            className={`p-4 rounded-xl border ${
+            className={`rounded-xl border p-4 ${
               isPassed
-                ? 'bg-emerald-50 border-emerald-200'
-                : 'bg-amber-50 border-amber-200'
+                ? 'border-emerald-200 bg-emerald-50'
+                : 'border-amber-200 bg-amber-50'
             }`}
           >
-
             <span
               className={`text-xs ${
                 isPassed ? 'text-emerald-700' : 'text-amber-700'
@@ -323,65 +328,54 @@ export default function ChapterQuizEngine({
             </span>
 
             <p
-              className={`text-2xl font-bold font-sans ${
+              className={`font-sans text-2xl font-bold ${
                 isPassed ? 'text-emerald-700' : 'text-amber-700'
               }`}
             >
               {accuracy}%
             </p>
-
           </div>
-
         </div>
 
-        {/* Weak Topics */}
+        {/* WEAK TOPICS */}
 
         {weakTopics.length > 0 ? (
-          <div className="text-left p-4 rounded-xl bg-amber-50 border border-amber-200">
-
-            <div className="flex items-center gap-2 font-bold text-amber-900 text-sm mb-2">
-
-              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-left">
+            <div className="mb-2 flex items-center gap-2 text-sm font-bold text-amber-900">
+              <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600" />
 
               <span>
                 পুনরায় রিভিশন দেওয়ার পরামর্শ (Weak Topics):
               </span>
-
             </div>
 
-            <ul className="list-disc list-inside text-xs text-amber-800 space-y-1">
+            <ul className="list-inside list-disc space-y-1 text-xs text-amber-800">
               {weakTopics.map((topic, i) => (
-                <li key={`${topic}-${i}`}>
-                  {topic}
-                </li>
+                <li key={`${topic}-${i}`}>{topic}</li>
               ))}
             </ul>
-
           </div>
         ) : (
-          <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium flex items-center justify-center gap-2">
-
-            <Sparkles className="w-4 h-4 text-emerald-600" />
+          <div className="flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-xs font-medium text-emerald-800">
+            <Sparkles className="h-4 w-4 text-emerald-600" />
 
             <span>
-              তুমি সবগুলো টপিকের প্রশ্নের সঠিক উত্তর দিয়েছ!
+              তুমি সবগুলো প্রশ্নের সঠিক উত্তর দিয়েছ!
             </span>
-
           </div>
         )}
 
-        {/* Restart Button */}
+        {/* RESTART BUTTON */}
 
         <button
           type="button"
           onClick={() => handleRestart(true)}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition-all cursor-pointer"
+          className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-slate-800"
         >
-          <RotateCcw className="w-4 h-4" />
+          <RotateCcw className="h-4 w-4" />
 
           প্রশ্নগুলো শাফল করে আবার অনুশীলন করো
         </button>
-
       </div>
     );
   }
@@ -391,30 +385,24 @@ export default function ChapterQuizEngine({
   // ==========================================
 
   return (
-    <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 max-w-2xl mx-auto">
-
+    <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
       {/* QUIZ MODE SELECTOR */}
 
       {rawQuestions.length > 10 && (
-        <div className="flex items-center justify-between bg-slate-50 p-2 rounded-xl border border-slate-200 mb-5">
-
-          <span className="text-xs font-semibold text-slate-600 pl-2 flex items-center gap-1.5">
-
-            <BookOpenCheck className="w-4 h-4 text-blue-600" />
-
+        <div className="mb-5 flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 p-2">
+          <span className="flex items-center gap-1.5 pl-2 text-xs font-semibold text-slate-600">
+            <BookOpenCheck className="h-4 w-4 text-blue-600" />
             কুইজ মোড:
-
           </span>
 
           <div className="flex gap-1.5">
-
             <button
               type="button"
               onClick={() => handleModeChange('quick10')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+              className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
                 quizMode === 'quick10'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                  : 'border border-slate-200 bg-white text-slate-600 hover:bg-slate-100'
               }`}
             >
               ১০টি প্রশ্ন (Quick)
@@ -423,58 +411,58 @@ export default function ChapterQuizEngine({
             <button
               type="button"
               onClick={() => handleModeChange('full25')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+              className={`cursor-pointer rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
                 quizMode === 'full25'
                   ? 'bg-blue-600 text-white'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                  : 'border border-slate-200 bg-white text-slate-600 hover:bg-slate-100'
               }`}
             >
               সবগুলো ({rawQuestions.length}টি)
             </button>
-
           </div>
         </div>
       )}
 
       {/* PROGRESS HEADER */}
 
-      <div className="space-y-3 mb-5">
-
-        <div className="flex items-center justify-between">
-
-          <span className="text-xs font-bold uppercase text-emerald-700 bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200">
+      <div className="mb-5 space-y-3">
+        <div className="flex items-center justify-between gap-3">
+          <span className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold uppercase text-emerald-700">
             প্রশ্ন {currentIdx + 1} / {totalQuestions}
           </span>
 
-          <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
-            টপিক: {currentQ.topicTag}
+          <span className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-500">
+            টপিক: {currentTopic}
           </span>
-
         </div>
 
-        {/* Progress Bar */}
+        {/* PROGRESS BAR */}
 
-        <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-
+        <div
+          className="h-2 w-full overflow-hidden rounded-full bg-slate-100"
+          role="progressbar"
+          aria-valuenow={currentIdx + 1}
+          aria-valuemin={1}
+          aria-valuemax={totalQuestions}
+          aria-label="কুইজ অগ্রগতি"
+        >
           <div
-            className="h-full bg-emerald-500 transition-all duration-300"
+            className="h-full rounded-full bg-emerald-500 transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
-
         </div>
-
       </div>
 
       {/* QUESTION */}
 
-      <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-4 leading-snug">
+      <h3 className="mb-4 text-lg font-bold leading-snug text-slate-900 sm:text-xl">
         {currentQ.question}
       </h3>
 
       {/* FORMULA */}
 
       {currentQ.formulaLatex && (
-        <div className="mb-5 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 inline-block">
+        <div className="mb-5 inline-block rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5">
           <FormulaBox formula={currentQ.formulaLatex} />
         </div>
       )}
@@ -482,17 +470,15 @@ export default function ChapterQuizEngine({
       {/* OPTIONS */}
 
       <div className="space-y-3">
-
         {currentQ.options.map((option, idx) => {
           const isSelected = selectedOption === idx;
-
           const isCorrect = idx === currentQ.correctIndex;
 
           let btnStyle =
-            'border-slate-200 hover:border-blue-300 hover:bg-slate-50 text-slate-800';
+            'border-slate-200 text-slate-800 hover:border-blue-300 hover:bg-slate-50';
 
           let badgeStyle =
-            'bg-slate-100 text-slate-700 border-slate-200';
+            'border-slate-200 bg-slate-100 text-slate-700';
 
           if (selectedOption !== null) {
             if (isCorrect) {
@@ -500,18 +486,15 @@ export default function ChapterQuizEngine({
                 'border-emerald-500 bg-emerald-50 text-emerald-950';
 
               badgeStyle =
-                'bg-emerald-600 text-white border-emerald-600';
-
+                'border-emerald-600 bg-emerald-600 text-white';
             } else if (isSelected) {
               btnStyle =
                 'border-red-400 bg-red-50 text-red-950';
 
               badgeStyle =
-                'bg-red-600 text-white border-red-600';
-
+                'border-red-600 bg-red-600 text-white';
             } else {
-              btnStyle =
-                'border-slate-200 opacity-60 text-slate-500';
+              btnStyle = 'border-slate-200 text-slate-500 opacity-60';
             }
           }
 
@@ -520,14 +503,12 @@ export default function ChapterQuizEngine({
               type="button"
               key={idx}
               onClick={() => handleSelectOption(idx)}
-              disabled={selectedOption !== null}
-              className={`w-full text-left p-3.5 sm:p-4 rounded-xl border font-medium transition-all flex items-center justify-between gap-3 cursor-pointer ${btnStyle}`}
+              disabled={selectedOption !== null || isSaving}
+              className={`flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border p-3.5 text-left font-medium transition-all disabled:cursor-default sm:p-4 ${btnStyle}`}
             >
-
               <div className="flex items-center gap-3">
-
                 <span
-                  className={`w-7 h-7 rounded-lg border text-xs font-bold flex items-center justify-center shrink-0 transition-colors ${badgeStyle}`}
+                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-xs font-bold transition-colors ${badgeStyle}`}
                 >
                   {OPTION_LABELS[idx] || idx + 1}
                 </span>
@@ -535,72 +516,60 @@ export default function ChapterQuizEngine({
                 <span className="text-sm sm:text-base">
                   {option}
                 </span>
-
               </div>
 
               {selectedOption !== null && isCorrect && (
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" />
               )}
 
               {selectedOption !== null && isSelected && !isCorrect && (
-                <XCircle className="w-5 h-5 text-red-600 shrink-0" />
+                <XCircle className="h-5 w-5 shrink-0 text-red-600" />
               )}
-
             </button>
           );
         })}
-
       </div>
 
       {/* EXPLANATION */}
 
       {selectedOption !== null && (
         <div className="mt-6 space-y-4">
-
           <div
-            className={`p-4 rounded-xl text-sm border leading-relaxed ${
+            className={`rounded-xl border p-4 text-sm leading-relaxed ${
               selectedOption === currentQ.correctIndex
-                ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
-                : 'bg-amber-50 border-amber-200 text-amber-900'
+                ? 'border-emerald-200 bg-emerald-50 text-emerald-900'
+                : 'border-amber-200 bg-amber-50 text-amber-900'
             }`}
           >
-
-            <p className="font-bold mb-1">
+            <p className="mb-1 font-bold">
               {selectedOption === currentQ.correctIndex
                 ? 'সঠিক উত্তর!'
                 : 'উত্তরটি সঠিক নয়।'}
             </p>
 
             <p>{currentQ.explanation}</p>
-
           </div>
 
           {/* NEXT BUTTON */}
 
           <div className="flex justify-end">
-
             <button
               type="button"
               onClick={handleNext}
               disabled={isSaving}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all cursor-pointer disabled:opacity-60"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-
               <span>
                 {currentIdx + 1 < totalQuestions
                   ? 'পরবর্তী প্রশ্ন'
                   : 'ফলাফল দেখো'}
               </span>
 
-              <ArrowRight className="w-4 h-4" />
-
+              <ArrowRight className="h-4 w-4" />
             </button>
-
           </div>
-
         </div>
       )}
-
     </div>
   );
 }

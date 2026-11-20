@@ -1,63 +1,102 @@
 
+/* =========================================================
+   MOTION CHAPTER - INTERACTIVE SCIENCE PLATFORM
+   Class: SSC (9-10)
+   Subject: Physics
+   Chapter: Motion (গতি)
+   ========================================================= */
+
+// =========================================================
+// 01. TYPES
+// =========================================================
+
 export interface MotionExample {
   title: string;
   description: string;
   example: string;
 }
 
+export interface MotionFormulaVariable {
+  symbol: string;
+  meaning: string;
+  unit: string;
+}
+
 export interface MotionFormula {
   name: string;
   expression: string;
   description: string;
-  variables?: {
-    symbol: string;
-    meaning: string;
-    unit: string;
-  }[];
+  variables?: MotionFormulaVariable[];
 }
 
+export type MotionLabType =
+  | 'car-motion'
+  | 'motion-graph'
+  | 'pendulum'
+  | 'circular-motion'
+  | 'vector';
+
 export interface MotionLab {
-  type:
-    | 'car-motion'
-    | 'motion-graph'
-    | 'pendulum'
-    | 'circular-motion'
-    | 'vector';
+  type: MotionLabType;
   title: string;
   description: string;
   dimension: '2D' | '3D';
   interactive: boolean;
 }
 
+export type MotionDifficulty = 'easy' | 'medium' | 'hard';
+
 export interface MotionTopic {
   id: string;
   title: string;
   subtitle: string;
+
   summary: string;
   content: string;
+
   learningObjectives: string[];
   keyPoints: string[];
+
   formulas: MotionFormula[];
+
+  // Legacy compatibility
+  formula?: string;
+
   examples: MotionExample[];
   applications: string[];
   misconceptions: string[];
+
   lab?: MotionLab;
-  difficulty: 'easy' | 'medium' | 'hard';
+
+  /**
+   * @deprecated Use lab?.interactive instead.
+   */
+  hasInteractiveLab?: boolean;
+
+  difficulty: MotionDifficulty;
   estimatedTime: number;
   tags: string[];
 }
 
+// =========================================================
+// 02. MOTION TOPICS
+// =========================================================
+
 export const MOTION_TOPICS: MotionTopic[] = [
+
   // =====================================================
   // 01. REST AND MOTION
   // =====================================================
+
   {
     id: 'rest-and-motion',
+
     title: 'স্থিতি ও গতি',
+
     subtitle: 'Reference Point, Rest and Relative Motion',
 
     summary:
-      'কোনো বস্তুর অবস্থান সময়ের সঙ্গে পরিবর্তিত হলে তাকে গতি বলে। আর অবস্থান পরিবর্তিত না হলে তাকে স্থিতি বলে।',
+      'কোনো বস্তুর অবস্থান সময়ের সঙ্গে পরিবর্তিত হলে তাকে গতি বলে। আর নির্দিষ্ট প্রসঙ্গ কাঠামোর সাপেক্ষে অবস্থান পরিবর্তিত না হলে তাকে স্থিতি বলে।',
 
     content: `
 ## ১. স্থিতি (Rest)
@@ -95,7 +134,8 @@ export const MOTION_TOPICS: MotionTopic[] = [
 যেমন:
 চলন্ত ট্রেনের ভেতরে বসে থাকা যাত্রী ট্রেনের সাপেক্ষে স্থির, কিন্তু পৃথিবীর সাপেক্ষে গতিশীল।
 
-**মনে রাখবে:** স্থিতি ও গতি নির্ধারণের জন্য সবসময় একটি প্রসঙ্গ কাঠামো প্রয়োজন।
+মনে রাখবে:
+স্থিতি ও গতি নির্ধারণের জন্য সবসময় একটি প্রসঙ্গ কাঠামো প্রয়োজন।
 `,
 
     learningObjectives: [
@@ -154,16 +194,26 @@ export const MOTION_TOPICS: MotionTopic[] = [
 
     difficulty: 'easy',
     estimatedTime: 15,
-    tags: ['Rest', 'Motion', 'Reference Frame', 'Relative Motion'],
+
+    tags: [
+      'Rest',
+      'Motion',
+      'Reference Frame',
+      'Relative Motion',
+    ],
   },
 
   // =====================================================
   // 02. TYPES OF MOTION
   // =====================================================
+
   {
     id: 'types-of-motion',
+
     title: 'গতির প্রকারভেদ',
-    subtitle: 'Translational, Rotational, Circular and Periodic Motion',
+
+    subtitle:
+      'Translational, Rotational, Circular and Periodic Motion',
 
     summary:
       'বস্তুর চলার পথ ও গতির প্রকৃতি অনুসারে গতিকে বিভিন্ন ভাগে ভাগ করা যায়।',
@@ -206,7 +256,8 @@ export const MOTION_TOPICS: MotionTopic[] = [
 উদাহরণ:
 দড়িতে বাঁধা পাথরকে ঘোরানো।
 
-**বিশেষ বিষয়:** বৃত্তাকার পথে চলার সময় বস্তুর বেগের দিক পরিবর্তিত হয়।
+বিশেষ বিষয়:
+বৃত্তাকার পথে চলার সময় বস্তুর বেগের দিক পরিবর্তিত হয়।
 
 ## ৪. পর্যায়বৃত্ত গতি (Periodic Motion)
 
@@ -234,7 +285,8 @@ export const MOTION_TOPICS: MotionTopic[] = [
 উদাহরণ:
 সরল দোলক এবং স্প্রিংয়ে ঝোলানো বস্তুর দোলন।
 
-**মনে রাখবে:** সব পর্যায়বৃত্ত গতি দোলন গতি নয়। তবে আদর্শ সরল দোলকের দোলন পর্যায়বৃত্ত।
+মনে রাখবে:
+সব পর্যায়বৃত্ত গতি দোলন গতি নয়। তবে আদর্শ সরল দোলকের দোলন পর্যায়বৃত্ত।
 `,
 
     learningObjectives: [
@@ -296,17 +348,20 @@ export const MOTION_TOPICS: MotionTopic[] = [
     examples: [
       {
         title: 'পাখার ব্লেড',
-        description: 'পাখার ব্লেড একটি নির্দিষ্ট অক্ষের চারদিকে ঘোরে।',
+        description:
+          'পাখার ব্লেড একটি নির্দিষ্ট অক্ষের চারদিকে ঘোরে।',
         example: 'এটি ঘূর্ণন গতির উদাহরণ।',
       },
       {
         title: 'দোলক',
-        description: 'দোলক সাম্যাবস্থার দুই পাশে সামনে-পেছনে চলে।',
+        description:
+          'দোলক সাম্যাবস্থার দুই পাশে সামনে-পেছনে চলে।',
         example: 'এটি দোলন গতির উদাহরণ।',
       },
       {
         title: 'ঘড়ির কাঁটা',
-        description: 'ঘড়ির কাঁটা নির্দিষ্ট সময় পরপর একই অবস্থায় ফিরে আসে।',
+        description:
+          'ঘড়ির কাঁটা নির্দিষ্ট সময় পরপর একই অবস্থায় ফিরে আসে।',
         example: 'এটি পর্যায়বৃত্ত গতির উদাহরণ।',
       },
     ],
@@ -336,6 +391,7 @@ export const MOTION_TOPICS: MotionTopic[] = [
 
     difficulty: 'medium',
     estimatedTime: 20,
+
     tags: [
       'Types of Motion',
       'Rotational Motion',
@@ -348,10 +404,14 @@ export const MOTION_TOPICS: MotionTopic[] = [
   // =====================================================
   // 03. DISTANCE AND DISPLACEMENT
   // =====================================================
+
   {
     id: 'distance-and-displacement',
+
     title: 'দূরত্ব ও সরণ',
-    subtitle: 'Scalar Quantity, Vector Quantity and Position Change',
+
+    subtitle:
+      'Scalar Quantity, Vector Quantity and Position Change',
 
     summary:
       'দূরত্ব হলো অতিক্রান্ত মোট পথের দৈর্ঘ্য। সরণ হলো আদিবিন্দু থেকে শেষ অবস্থানের দিকসহ সরলরৈখিক পরিবর্তন।',
@@ -420,7 +480,8 @@ export const MOTION_TOPICS: MotionTopic[] = [
 
 কারণ, ব্যক্তি আবার শুরুর অবস্থানে ফিরে এসেছে।
 
-**মনে রাখবে:** দূরত্ব সবসময় শূন্য বা ধনাত্মক। কিন্তু সরণের মান শূন্য হতে পারে এবং সরণের দিকও বিবেচনা করতে হয়।
+মনে রাখবে:
+দূরত্ব সবসময় শূন্য বা ধনাত্মক। কিন্তু সরণের মান শূন্য হতে পারে এবং সরণের দিকও বিবেচনা করতে হয়।
 `,
 
     learningObjectives: [
@@ -485,7 +546,8 @@ export const MOTION_TOPICS: MotionTopic[] = [
         title: 'বৃত্তাকার মাঠ',
         description:
           'একজন দৌড়বিদ ৪০০ মিটার মাঠে একবার সম্পূর্ণ চক্কর দিল।',
-        example: 'দূরত্ব = ৪০০ মিটার এবং সরণ = ০ মিটার।',
+        example:
+          'দূরত্ব = ৪০০ মিটার এবং সরণ = ০ মিটার।',
       },
     ],
 
@@ -515,6 +577,7 @@ export const MOTION_TOPICS: MotionTopic[] = [
 
     difficulty: 'easy',
     estimatedTime: 20,
+
     tags: [
       'Distance',
       'Displacement',
@@ -526,10 +589,14 @@ export const MOTION_TOPICS: MotionTopic[] = [
   // =====================================================
   // 04. SPEED AND VELOCITY
   // =====================================================
+
   {
     id: 'speed-and-velocity',
+
     title: 'দ্রুতি ও বেগ',
-    subtitle: 'Average Speed, Average Velocity and Motion Rate',
+
+    subtitle:
+      'Average Speed, Average Velocity and Motion Rate',
 
     summary:
       'একক সময়ে অতিক্রান্ত দূরত্বকে দ্রুতি এবং একক সময়ে সরণকে বেগ বলে।',
@@ -641,13 +708,15 @@ v = dx/dt
       },
       {
         name: 'গড় দ্রুতি',
-        expression: 'Average Speed = Total Distance / Total Time',
+        expression:
+          'Average Speed = Total Distance / Total Time',
         description:
           'মোট দূরত্বকে মোট সময় দিয়ে ভাগ করলে গড় দ্রুতি পাওয়া যায়।',
       },
       {
         name: 'গড় বেগ',
-        expression: 'Average Velocity = Displacement / Time',
+        expression:
+          'Average Velocity = Displacement / Time',
         description:
           'মোট সরণকে মোট সময় দিয়ে ভাগ করলে গড় বেগ পাওয়া যায়।',
       },
@@ -656,8 +725,10 @@ v = dx/dt
     examples: [
       {
         title: 'গাড়ির গড় দ্রুতি',
-        description: 'একটি গাড়ি ২০০ মিটার পথ ২০ সেকেন্ডে অতিক্রম করে।',
-        example: 'গড় দ্রুতি = ২০০ ÷ ২০ = ১০ m/s।',
+        description:
+          'একটি গাড়ি ২০০ মিটার পথ ২০ সেকেন্ডে অতিক্রম করে।',
+        example:
+          'গড় দ্রুতি = ২০০ ÷ ২০ = ১০ m/s।',
       },
       {
         title: 'দৌড়বিদের গড় বেগ',
@@ -694,6 +765,7 @@ v = dx/dt
 
     difficulty: 'medium',
     estimatedTime: 20,
+
     tags: [
       'Speed',
       'Velocity',
@@ -705,10 +777,14 @@ v = dx/dt
   // =====================================================
   // 05. ACCELERATION
   // =====================================================
+
   {
     id: 'acceleration',
+
     title: 'ত্বরণ',
-    subtitle: 'Acceleration, Retardation and Change in Velocity',
+
+    subtitle:
+      'Acceleration, Retardation and Change in Velocity',
 
     summary:
       'একক সময়ে বেগের পরিবর্তনের হারকে ত্বরণ বলে।',
@@ -867,6 +943,7 @@ a = dv/dt
 
     difficulty: 'medium',
     estimatedTime: 20,
+
     tags: [
       'Acceleration',
       'Uniform Acceleration',
@@ -878,10 +955,14 @@ a = dv/dt
   // =====================================================
   // 06. EQUATIONS OF MOTION
   // =====================================================
+
   {
     id: 'equations-of-motion',
+
     title: 'গতির সমীকরণ',
-    subtitle: 'Equations of Uniformly Accelerated Motion',
+
+    subtitle:
+      'Equations of Uniformly Accelerated Motion',
 
     summary:
       'সুষম ত্বরণে সরলরেখা বরাবর চলমান বস্তুর বেগ, সময় ও সরণের সম্পর্ক প্রকাশ করে গতির সমীকরণ।',
@@ -967,7 +1048,8 @@ s = 25 m
 
 বস্তু দিক পরিবর্তন করলে মোট দূরত্ব নির্ণয়ের জন্য ক্ষেত্রফলের পরম মানগুলো যোগ করতে হয়।
 
-**গুরুত্বপূর্ণ:** গতির তিনটি সমীকরণ কেবল সরলরেখা বরাবর সুষম ত্বরণের ক্ষেত্রে প্রযোজ্য।
+গুরুত্বপূর্ণ:
+গতির তিনটি সমীকরণ কেবল সরলরেখা বরাবর সুষম ত্বরণের ক্ষেত্রে প্রযোজ্য।
 `,
 
     learningObjectives: [
@@ -1119,6 +1201,7 @@ s = 25 m
 
     difficulty: 'hard',
     estimatedTime: 30,
+
     tags: [
       'Equations of Motion',
       'Uniform Acceleration',
@@ -1127,3 +1210,119 @@ s = 25 m
     ],
   },
 ];
+
+// =====================================================
+// 03. HELPER FUNCTIONS
+// =====================================================
+
+/**
+ * Find a motion topic using its ID.
+ */
+export function getMotionTopicById(
+  topicId: string
+): MotionTopic | undefined {
+  return MOTION_TOPICS.find((topic) => topic.id === topicId);
+}
+
+/**
+ * Get all motion topics.
+ */
+export function getAllMotionTopics(): MotionTopic[] {
+  return MOTION_TOPICS;
+}
+
+/**
+ * Get total number of motion topics.
+ */
+export function getMotionTopicCount(): number {
+  return MOTION_TOPICS.length;
+}
+
+/**
+ * Get motion topics by difficulty.
+ */
+export function getMotionTopicsByDifficulty(
+  difficulty: MotionDifficulty
+): MotionTopic[] {
+  return MOTION_TOPICS.filter(
+    (topic) => topic.difficulty === difficulty
+  );
+}
+
+/**
+ * Get topics that have interactive labs.
+ */
+export function getInteractiveMotionTopics(): MotionTopic[] {
+  return MOTION_TOPICS.filter(
+    (topic) => topic.lab?.interactive === true
+  );
+}
+
+/**
+ * Get topic position.
+ */
+export function getMotionTopicIndex(
+  topicId: string
+): number {
+  return MOTION_TOPICS.findIndex(
+    (topic) => topic.id === topicId
+  );
+}
+
+/**
+ * Get next topic.
+ */
+export function getNextMotionTopic(
+  topicId: string
+): MotionTopic | undefined {
+  const index = getMotionTopicIndex(topicId);
+
+  if (index < 0 || index >= MOTION_TOPICS.length - 1) {
+    return undefined;
+  }
+
+  return MOTION_TOPICS[index + 1];
+}
+
+/**
+ * Get previous topic.
+ */
+export function getPreviousMotionTopic(
+  topicId: string
+): MotionTopic | undefined {
+  const index = getMotionTopicIndex(topicId);
+
+  if (index <= 0) {
+    return undefined;
+  }
+
+  return MOTION_TOPICS[index - 1];
+}
+
+/**
+ * Search motion topics.
+ */
+export function searchMotionTopics(
+  query: string
+): MotionTopic[] {
+  const normalizedQuery = query.trim().toLowerCase();
+
+  if (!normalizedQuery) {
+    return MOTION_TOPICS;
+  }
+
+  return MOTION_TOPICS.filter((topic) => {
+    const searchableContent = [
+      topic.id,
+      topic.title,
+      topic.subtitle,
+      topic.summary,
+      ...topic.tags,
+      ...topic.keyPoints,
+    ]
+      .join(' ')
+      .toLowerCase();
+
+    return searchableContent.includes(normalizedQuery);
+  });
+}

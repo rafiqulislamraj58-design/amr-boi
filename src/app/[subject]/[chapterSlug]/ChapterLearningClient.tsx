@@ -1,138 +1,447 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { ArrowLeft, BookOpen, FlaskConical, HelpCircle } from 'lucide-react';
-import type { SubjectData, ChapterData } from '@/types/curriculum';
+import React, { useState } from "react";
+import Link from "next/link";
+import dynamic from "next/dynamic";
 
-// Physics Chapter Views
-import MeasurementChapterView from '@/features/physics/measurement/MeasurementChapterView';
-import MotionChapterView from '@/features/physics/motion/MotionChapterView';
+import {
+  ArrowLeft,
+  BookOpen,
+  FlaskConical,
+  HelpCircle,
+  Loader2,
+} from "lucide-react";
 
-// Chemistry & Biology Specialized Labs
-import AtomStructureLab from '@/features/chemistry/AtomStructureLab';
-import CellThreeDExplorer from '@/features/biology/CellThreeDExplorer';
+import type { SubjectData, ChapterData } from "@/types/curriculum";
 
-// Universal Engines
-import UniversalLabEngine from '@/engines/UniversalLabEngine';
-import ChapterQuizEngine from '@/features/quiz/ChapterQuizEngine';
+// ============================================
+// LOADING FALLBACK
+// ============================================
+
+const SectionLoader = () => (
+  <div
+    className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white py-16 text-slate-500"
+    role="status"
+    aria-live="polite"
+  >
+    <Loader2 className="h-7 w-7 animate-spin text-blue-600" />
+    <p className="text-sm font-semibold">লোড হচ্ছে...</p>
+  </div>
+);
+
+// ============================================
+// PHYSICS CHAPTER VIEWS
+// ============================================
+
+const MeasurementChapterView = dynamic(
+  () => import("@/features/physics/measurement/MeasurementChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const MotionChapterView = dynamic(
+  () => import("@/features/physics/motion/MotionChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const ForceChapterView = dynamic(
+  () => import("@/features/physics/force/ForceChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const WorkEnergyChapterView = dynamic(
+  () => import("@/features/physics/work-energy/WorkEnergyChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const PressureChapterView = dynamic(
+  () => import("@/features/physics/pressure/PressureChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const HeatChapterView = dynamic(
+  () => import("@/features/physics/heat/HeatChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+// ============================================
+// CHEMISTRY CHAPTER VIEWS
+// ============================================
+
+const ConceptOfChemistryChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/concept-of-chemistry/ConceptOfChemistryChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const AtomStructureChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/structure-of-matter/AtomStructureChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const PeriodicTableChapterView = dynamic(
+  () => import("@/features/chemistry/periodic-table/PeriodicTableChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const ChemicalBondingChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/chemical-bonding/ChemicalBondingChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const StatesOfMatterChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/states-of-matter/StatesOfMatterChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+//
+const MoleConceptChapterView = dynamic(
+  () => import("@/features/chemistry/mole-concept/MoleConceptChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+// ============================================
+// INTERACTIVE PHYSICS LABS
+// ============================================
+
+const VernierCaliperLab = dynamic(
+  () => import("@/features/physics/VernierCaliperLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const MotionSimulationLab = dynamic(
+  () => import("@/features/physics/MotionSimulationLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const ForceSimulationLab = dynamic(
+  () => import("@/features/physics/force/ForceSimulationLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const WorkEnergySimulationLab = dynamic(
+  () => import("@/features/physics/work-energy/WorkEnergySimulationLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const PressureSimulationLab = dynamic(
+  () => import("@/features/physics/pressure/PressureSimulationLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const HeatSimulationLab = dynamic(
+  () => import("@/features/physics/heat/HeatSimulationLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+// ============================================
+// CHEMISTRY & BIOLOGY LABS
+// ============================================
+
+const HazardSymbolsLab = dynamic(
+  () => import("@/features/chemistry/concept-of-chemistry/HazardSymbolsLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+const StatesOfMatterLab = dynamic(
+  () => import("@/features/chemistry/states-of-matter/StatesOfMatterLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+const AtomStructureLab = dynamic(
+  () => import("@/features/chemistry/AtomStructureLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const PeriodicTableLab = dynamic(
+  () => import("@/features/chemistry/periodic-table/PeriodicTableLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const ChemicalBondingLab = dynamic(
+  () => import("@/features/chemistry/chemical-bonding/ChemicalBondingLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+//
+const MoleConceptLab = dynamic(
+  () => import("@/features/chemistry/mole-concept/MoleConceptLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const CellThreeDExplorer = dynamic(
+  () => import("@/features/biology/CellThreeDExplorer"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+// ============================================
+// UNIVERSAL ENGINES
+// ============================================
+
+const UniversalLabEngine = dynamic(
+  () => import("@/engines/UniversalLabEngine"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const ChapterQuizEngine = dynamic(
+  () => import("@/features/quiz/ChapterQuizEngine"),
+  { loading: () => <SectionLoader /> },
+);
+
+// ============================================
+// TYPES & TAB CONFIGURATION
+// ============================================
+
+type TabId = "lesson" | "lab" | "quiz";
 
 interface Props {
   subject: SubjectData;
   chapter: ChapterData;
 }
 
+interface TabItem {
+  id: TabId;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  activeClass: string;
+}
+
+const TABS: TabItem[] = [
+  {
+    id: "lesson",
+    label: "মূল পাঠ ও টপিক",
+    icon: BookOpen,
+    activeClass: "bg-white text-blue-600 shadow-xs",
+  },
+  {
+    id: "lab",
+    label: "ইন্টারঅ্যাক্টিভ ল্যাব",
+    icon: FlaskConical,
+    activeClass: "bg-white text-emerald-600 shadow-xs",
+  },
+  {
+    id: "quiz",
+    label: "MCQ অনুশীলন",
+    icon: HelpCircle,
+    activeClass: "bg-white text-amber-600 shadow-xs",
+  },
+];
+
+// ============================================
+// MAIN COMPONENT
+// ============================================
+
 export default function ChapterLearningClient({ subject, chapter }: Props) {
-  const [activeTab, setActiveTab] = useState<'lesson' | 'lab' | 'quiz'>('lesson');
+  const [activeTab, setActiveTab] = useState<TabId>("lesson");
+  const chapterSlug = chapter.slug.trim().toLowerCase();
+
+  // ==========================================
+  // LESSON CONTENT
+  // ==========================================
 
   const renderChapterLesson = () => {
-    switch (chapter.slug) {
-      case 'measurement':
-      case 'physical-quantities-and-measurement':
+    switch (chapterSlug) {
+      // Physics
+      case "measurement":
+      case "physical-quantities-and-measurement":
         return <MeasurementChapterView />;
 
-      case 'motion':
+      case "motion":
         return <MotionChapterView />;
 
-      case 'structure-of-matter':
-        return <AtomStructureLab />;
+      case "force":
+        return <ForceChapterView />;
 
-      case 'cells-and-tissues':
+      case "work-power-energy":
+      case "work-power-and-energy":
+        return <WorkEnergyChapterView />;
+
+      case "pressure":
+      case "states-of-matter-and-pressure":
+      case "state-of-matter-and-pressure":
+        return <PressureChapterView />;
+
+      case "heat":
+      case "effect-of-heat-on-matter":
+      case "effects-of-heat-on-matter":
+        return <HeatChapterView />;
+
+      // Chemistry
+      case "concept-of-chemistry":
+      case "concepts-of-chemistry":
+        return <ConceptOfChemistryChapterView />;
+
+      case "states-of-matter":
+      case "state-of-matter":
+        return <StatesOfMatterChapterView />;
+
+      case "structure-of-matter":
+        return <AtomStructureChapterView />;
+
+      case "periodic-table":
+        return <PeriodicTableChapterView />;
+
+      case "chemical-bonding":
+      case "chemical-bond":
+        return <ChemicalBondingChapterView />;
+
+    case "mole-concept":
+      case "concept-of-mole":
+      case "concept-of-mole-and-chemical-counting":
+      case "mole-concept-and-chemical-calculations":
+        return <MoleConceptChapterView />;
+
+      // Biology
+      case "cells-and-tissues":
         return <CellThreeDExplorer />;
 
       default:
         return (
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
-              <h2 className="text-xl font-bold text-slate-900 mb-2">{chapter.title}</h2>
-              <p className="text-slate-600 leading-relaxed">
-                {chapter.summary || 'এই অধ্যায়ের বিস্তারিত পাঠ ও ইন্টারঅ্যাক্টিভ সিমুলেশন নিচে অনুশীলন করো।'}
-              </p>
-            </div>
-            <UniversalLabEngine
-              chapterSlug={chapter.slug}
-              chapterTitle={chapter.title}
-              subjectId={subject.id}
-            />
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+            <h2 className="mb-2 text-xl font-bold text-slate-900">
+              {chapter.title}
+            </h2>
+            <p className="leading-relaxed text-slate-600">
+              {chapter.description ||
+                "এই অধ্যায়ের বিস্তারিত পাঠ ও ইন্টারঅ্যাক্টিভ সিমুলেশন শীঘ্রই যুক্ত হচ্ছে।"}
+            </p>
           </div>
         );
     }
   };
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-      {/* Top Breadcrumb & Chapter Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
-        <div>
-          <Link
-            href={`/${subject.id}`}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 mb-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>{subject.title}-এর সব অধ্যায়ে ফিরে যাও</span>
-          </Link>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">{chapter.title}</h1>
-        </div>
+  // ==========================================
+  // LAB CONTENT
+  // ==========================================
 
-        {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200 self-start sm:self-auto">
-          <button
-            onClick={() => setActiveTab('lesson')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              activeTab === 'lesson'
-                ? 'bg-white text-blue-600 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <BookOpen className="w-4 h-4" />
-            <span>মূল পাঠ ও টপিক</span>
-          </button>
+  const renderChapterLab = () => {
+    switch (chapterSlug) {
+      // Physics
+      case "measurement":
+      case "physical-quantities-and-measurement":
+        return <VernierCaliperLab />;
 
-          <button
-            onClick={() => setActiveTab('lab')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              activeTab === 'lab'
-                ? 'bg-white text-emerald-600 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <FlaskConical className="w-4 h-4" />
-            <span>ল্যাব ক্যালকুলেটর</span>
-          </button>
+      case "motion":
+        return <MotionSimulationLab />;
 
-          <button
-            onClick={() => setActiveTab('quiz')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              activeTab === 'quiz'
-                ? 'bg-white text-amber-600 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <HelpCircle className="w-4 h-4" />
-            <span>MCQ অনুশীলন (২৫টি)</span>
-          </button>
-        </div>
-      </div>
+      case "force":
+        return <ForceSimulationLab />;
 
-      {/* Tab Content Area */}
-      <div>
-        {activeTab === 'lesson' && renderChapterLesson()}
+      case "work-power-energy":
+      case "work-power-and-energy":
+        return <WorkEnergySimulationLab />;
 
-        {activeTab === 'lab' && (
+      case "pressure":
+      case "states-of-matter-and-pressure":
+      case "state-of-matter-and-pressure":
+        return <PressureSimulationLab />;
+
+      case "heat":
+      case "effect-of-heat-on-matter":
+      case "effects-of-heat-on-matter":
+        return <HeatSimulationLab />;
+
+      // Chemistry
+      case "concept-of-chemistry":
+      case "concepts-of-chemistry":
+        return <HazardSymbolsLab />;
+
+      case "states-of-matter":
+      case "state-of-matter":
+        return <StatesOfMatterLab />;
+
+      case "structure-of-matter":
+        return <AtomStructureLab />;
+
+      case "periodic-table":
+        return <PeriodicTableLab />;
+
+      case "chemical-bonding":
+      case "chemical-bond":
+        return <ChemicalBondingLab />;
+
+     case "mole-concept":
+      case "concept-of-mole":
+      case "concept-of-mole-and-chemical-counting":
+      case "mole-concept-and-chemical-calculations":
+        return <MoleConceptLab />;
+
+      // Biology
+      case "cells-and-tissues":
+        return <CellThreeDExplorer />;
+
+      default:
+        return (
           <UniversalLabEngine
-            chapterSlug={chapter.slug}
+            chapterSlug={chapterSlug}
             chapterTitle={chapter.title}
             subjectId={subject.id}
           />
-        )}
+        );
+    }
+  };
 
-        {activeTab === 'quiz' && (
-          <ChapterQuizEngine
-            chapterSlug={chapter.slug}
-            subjectId={subject.id}
-          />
+  // ==========================================
+  // RENDER
+  // ==========================================
+
+  return (
+    <main className="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6">
+      {/* HEADER */}
+      <header className="flex flex-col justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs sm:flex-row sm:items-center">
+        <div>
+          <Link
+            href={`/${subject.id}`}
+            className="mb-2 inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 transition-colors hover:text-blue-700"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span>{subject.nameBn}-এর সব অধ্যায়ে ফিরে যাও</span>
+          </Link>
+
+          <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
+            {chapter.title}
+          </h1>
+        </div>
+
+        {/* NAVIGATION TABS */}
+        <div
+          role="tablist"
+          aria-label="অধ্যায় নেভিগেশন"
+          className="flex flex-wrap gap-2 self-start rounded-xl border border-slate-200 bg-slate-100 p-1.5 sm:self-auto"
+        >
+          {TABS.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition-all sm:text-sm ${
+                  isActive
+                    ? tab.activeClass
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <Icon className="h-4 w-4" />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </header>
+
+      {/* TAB CONTENT */}
+      <div role="tabpanel">
+        {activeTab === "lesson" && renderChapterLesson()}
+        {activeTab === "lab" && renderChapterLab()}
+        {activeTab === "quiz" && (
+          <ChapterQuizEngine chapterSlug={chapterSlug} subjectId={subject.id} />
         )}
       </div>
-    </div>
+    </main>
   );
 }
