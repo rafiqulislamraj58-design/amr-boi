@@ -182,6 +182,45 @@ const ChemistryInOurLifeChapterView = dynamic(
     import("@/features/chemistry/chemistry-in-our-life/ChemistryInOurLifeChapterView"),
   { loading: () => <SectionLoader /> },
 );
+// boilogy  cahpter  view
+const LessonsOnLifeChapterView = dynamic(
+  () => import("@/features/biology/lessons-on-life/LessonsOnLifeChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+const CellsAndTissuesChapterView = dynamic(
+  () => import("@/features/biology/cells-and-tissues/CellsAndTissuesChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const CellsAndTissuesLab = dynamic(
+  () => import("@/features/biology/cells-and-tissues/CellsAndTissuesLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+
+const CellDivisionChapterView = dynamic(
+  () => import("@/features/biology/cell-division/CellDivisionChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+// 
+const BioenergeticsChapterView = dynamic(
+  () => import("@/features/biology/bioenergetics/BioenergeticsChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+// 
+const FoodNutritionDigestionChapterView = dynamic(
+  () =>
+    import("@/features/biology/food-nutrition-digestion/FoodNutritionDigestionChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+
+const TransportInOrganismsChapterView = dynamic(
+  () =>
+    import("@/features/biology/transport-in-organisms/TransportInOrganismsChapterView"),
+  { loading: () => <SectionLoader /> },
+);
 
 // ============================================
 // INTERACTIVE PHYSICS LABS
@@ -329,6 +368,35 @@ const ChemistryInOurLifeLab = dynamic(
 // Biology
 const CellThreeDExplorer = dynamic(
   () => import("@/features/biology/CellThreeDExplorer"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const LessonsOnLifeLab = dynamic(
+  () => import("@/features/biology/lessons-on-life/LessonsOnLifeLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const CellDivisionLab = dynamic(
+  () => import("@/features/biology/cell-division/CellDivisionLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+
+const BioenergeticsLab = dynamic(
+  () => import("@/features/biology/bioenergetics/BioenergeticsLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const FoodNutritionDigestionLab = dynamic(
+  () =>
+    import("@/features/biology/food-nutrition-digestion/FoodNutritionDigestionLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+
+const TransportInOrganismsLab = dynamic(
+  () =>
+    import("@/features/biology/transport-in-organisms/TransportInOrganismsLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
 
@@ -520,8 +588,42 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
         return <ChemistryInOurLifeChapterView />;
 
       // Biology
+    
+      case "lessons-on-life":
+      case "lesson-on-life":
+      case "life-lessons":
+        return <LessonsOnLifeChapterView />;
+
       case "cells-and-tissues":
-        return <CellThreeDExplorer />;
+      case "cell-and-tissue":
+      case "cells-and-tissues-of-organisms":
+        return <CellsAndTissuesChapterView />;
+
+        case "cell-division":
+      case "cell-divisions":
+        return <CellDivisionChapterView />;
+
+
+        case "bioenergetics":
+      case "bio-energetics":
+      case "life-energy":
+        return <BioenergeticsChapterView />;
+
+
+        case "food-nutrition-and-digestion":
+      case "food-nutrition-digestion":
+      case "nutrition-and-digestion":
+        return <FoodNutritionDigestionChapterView />;
+
+        case "transport-in-organisms":
+      case "transport-in-organism":
+      case "transportation-in-organisms":
+        return <TransportInOrganismsChapterView />;
+
+
+        
+
+
 
       default:
         return (
@@ -668,6 +770,38 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
         return <ChemistryInOurLifeLab />;
 
       // Biology
+      case "lessons-on-life":
+      case "lesson-on-life":
+      case "life-lessons":
+        return <LessonsOnLifeLab />;
+
+        case "cells-and-tissues":
+      case "cell-and-tissue":
+      case "cells-and-tissues-of-organisms":
+        return <CellsAndTissuesLab />;
+
+
+        case "cell-division":
+      case "cell-divisions":
+        return <CellDivisionLab />;
+
+
+        case "bioenergetics":
+      case "bio-energetics":
+      case "life-energy":
+        return <BioenergeticsLab />;
+        // 
+        case "food-nutrition-and-digestion":
+      case "food-nutrition-digestion":
+      case "nutrition-and-digestion":
+        return <FoodNutritionDigestionLab />;
+
+        case "transport-in-organisms":
+      case "transport-in-organism":
+      case "transportation-in-organisms":
+        return <TransportInOrganismsLab />;
+      
+        // aditional
       case "cells-and-tissues":
         return <CellThreeDExplorer />;
 

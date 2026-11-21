@@ -23,6 +23,7 @@ import { MAGNETIC_EFFECTS_MCQS } from './physics/magnetic-effects';
 import { MODERN_PHYSICS_MCQS } from './physics/modern-physics';
 import { PHYSICS_TO_SAVE_LIFE_MCQS } from './physics/physics-to-save-life';
 
+
 // chemisty
 import { PERIODIC_TABLE_MCQS } from './chemistry/periodic-table';
 import { CHEMICAL_BONDING_MCQS } from './chemistry/chemical-bonding';
@@ -39,6 +40,23 @@ import { MINERAL_RESOURCES_METAL_MCQS } from './chemistry/mineral-resources-meta
 import { MINERAL_RESOURCES_FOSSILS_MCQS } from './chemistry/mineral-resources-fossils';
 
 import { CHEMISTRY_IN_OUR_LIFE_MCQS } from './chemistry/chemistry-in-our-life';
+// biology
+import { LESSONS_ON_LIFE_MCQS } from './biology/lessons-on-life';
+
+import { CELLS_AND_TISSUES_MCQS } from './biology/cells-and-tissues';
+
+import { CELL_DIVISION_MCQS } from './biology/cell-division';
+
+import { BIOENERGETICS_MCQS } from './biology/bioenergetics';
+
+import { FOOD_NUTRITION_DIGESTION_MCQS } from './biology/food-nutrition-digestion';
+
+import { TRANSPORT_IN_ORGANISMS_MCQS } from './biology/transport-in-organisms';
+
+
+
+
+
 // =====================================================
 // CHAPTER MCQ REGISTRY
 // =====================================================
@@ -145,6 +163,38 @@ export const CHAPTER_MCQ_REGISTRY: Record<string, QuizQuestion[]> = {
   'everyday-chemistry': CHEMISTRY_IN_OUR_LIFE_MCQS,
   'chemistry-and-life': CHEMISTRY_IN_OUR_LIFE_MCQS,
   'chemistry-life': CHEMISTRY_IN_OUR_LIFE_MCQS,
+// boilogy
+
+  'lessons-on-life': LESSONS_ON_LIFE_MCQS,
+  'lesson-on-life': LESSONS_ON_LIFE_MCQS,
+  'life-lessons': LESSONS_ON_LIFE_MCQS,
+
+
+  'cells-and-tissues': CELLS_AND_TISSUES_MCQS,
+  'cell-and-tissue': CELLS_AND_TISSUES_MCQS,
+  'cells-and-tissues-of-organisms': CELLS_AND_TISSUES_MCQS,
+// 
+
+  'cell-division': CELL_DIVISION_MCQS,
+  'cell-divisions': CELL_DIVISION_MCQS,
+
+// 
+
+  'bioenergetics': BIOENERGETICS_MCQS,
+  'bio-energetics': BIOENERGETICS_MCQS,
+  'life-energy': BIOENERGETICS_MCQS,
+
+
+// 
+  'food-nutrition-and-digestion': FOOD_NUTRITION_DIGESTION_MCQS,
+  'food-nutrition-digestion': FOOD_NUTRITION_DIGESTION_MCQS,
+  'nutrition-and-digestion': FOOD_NUTRITION_DIGESTION_MCQS,
+
+  // 
+ 
+  'transport-in-organisms': TRANSPORT_IN_ORGANISMS_MCQS,
+  'transport-in-organism': TRANSPORT_IN_ORGANISMS_MCQS,
+  'transportation-in-organisms': TRANSPORT_IN_ORGANISMS_MCQS,
 
 };
 // 
