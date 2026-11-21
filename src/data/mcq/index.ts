@@ -29,6 +29,16 @@ import { CHEMICAL_BONDING_MCQS } from './chemistry/chemical-bonding';
 import { CONCEPT_OF_CHEMISTRY_MCQS } from './chemistry/concept-of-chemistry';
 import { STATES_OF_MATTER_MCQS } from './chemistry/states-of-matter';
 import { MOLE_CONCEPT_MCQS } from './chemistry/mole-concept';
+
+import { CHEMICAL_REACTIONS_MCQS } from './chemistry/chemical-reactions';
+
+import { CHEMISTRY_AND_ENERGY_MCQS } from './chemistry/chemistry-and-energy';
+
+import { ACID_BASE_BALANCE_MCQS } from './chemistry/acid-base-balance';
+import { MINERAL_RESOURCES_METAL_MCQS } from './chemistry/mineral-resources-metal';
+import { MINERAL_RESOURCES_FOSSILS_MCQS } from './chemistry/mineral-resources-fossils';
+
+import { CHEMISTRY_IN_OUR_LIFE_MCQS } from './chemistry/chemistry-in-our-life';
 // =====================================================
 // CHAPTER MCQ REGISTRY
 // =====================================================
@@ -92,12 +102,53 @@ export const CHAPTER_MCQ_REGISTRY: Record<string, QuizQuestion[]> = {
   'concepts-of-chemistry': CONCEPT_OF_CHEMISTRY_MCQS,
   'states-of-matter': STATES_OF_MATTER_MCQS,
   'state-of-matter': STATES_OF_MATTER_MCQS,
-  // Chemistry
+
   'mole-concept': MOLE_CONCEPT_MCQS,
   'concept-of-mole': MOLE_CONCEPT_MCQS,
   'concept-of-mole-and-chemical-counting': MOLE_CONCEPT_MCQS,
   'mole-concept-and-chemical-calculations': MOLE_CONCEPT_MCQS,
+
+
+  'chemical-reactions': CHEMICAL_REACTIONS_MCQS,
+  'chemical-reaction': CHEMICAL_REACTIONS_MCQS,
+
+  
+  'chemistry-and-energy': CHEMISTRY_AND_ENERGY_MCQS,
+  'chemistry-energy': CHEMISTRY_AND_ENERGY_MCQS,
+
+
+  'acid-base-balance': ACID_BASE_BALANCE_MCQS,
+  'acid-base': ACID_BASE_BALANCE_MCQS,
+
+
+
+
+  'mineral-resources-metal': MINERAL_RESOURCES_METAL_MCQS,
+  'mineral-resources-metal-nonmetal': MINERAL_RESOURCES_METAL_MCQS,
+  'mineral-resources-metals-nonmetals': MINERAL_RESOURCES_METAL_MCQS,
+  'mineral-resources-metal-and-nonmetal': MINERAL_RESOURCES_METAL_MCQS,
+  'mineral-resources': MINERAL_RESOURCES_METAL_MCQS,
+  // 
+  //
+  'mineral-resources-fossils': MINERAL_RESOURCES_FOSSILS_MCQS,
+  'mineral-resources-fossil': MINERAL_RESOURCES_FOSSILS_MCQS,
+  'mineral-resources-fossil-fuels': MINERAL_RESOURCES_FOSSILS_MCQS,
+  'fossils': MINERAL_RESOURCES_FOSSILS_MCQS,
+  // 
+  // 
+  //
+  'chemistry-in-our-life': CHEMISTRY_IN_OUR_LIFE_MCQS,
+  'chemistry-in-our-lives': CHEMISTRY_IN_OUR_LIFE_MCQS,
+  'chemistry-in-everyday-life': CHEMISTRY_IN_OUR_LIFE_MCQS,
+  'chemistry-in-daily-life': CHEMISTRY_IN_OUR_LIFE_MCQS,
+  'chemistry-in-life': CHEMISTRY_IN_OUR_LIFE_MCQS,
+  'everyday-chemistry': CHEMISTRY_IN_OUR_LIFE_MCQS,
+  'chemistry-and-life': CHEMISTRY_IN_OUR_LIFE_MCQS,
+  'chemistry-life': CHEMISTRY_IN_OUR_LIFE_MCQS,
+
 };
+// 
+
 
 // =====================================================
 // GET MCQs BY CHAPTER

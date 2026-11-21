@@ -63,40 +63,49 @@ const HeatChapterView = dynamic(
   { loading: () => <SectionLoader /> },
 );
 
-//
 const WavesAndSoundChapterView = dynamic(
   () => import("@/features/physics/waves-and-sound/WavesAndSoundChapterView"),
   { loading: () => <SectionLoader /> },
 );
-//
+
 const ReflectionOfLightChapterView = dynamic(
   () =>
     import("@/features/physics/reflection-of-light/ReflectionOfLightChapterView"),
   { loading: () => <SectionLoader /> },
 );
 
-
+const RefractionOfLightChapterView = dynamic(
+  () =>
+    import("@/features/physics/refraction-of-light/RefractionOfLightChapterView"),
+  { loading: () => <SectionLoader /> },
+);
 
 const StaticElectricityChapterView = dynamic(
-  () => import("@/features/physics/static-electricity/StaticElectricityChapterView"),
+  () =>
+    import("@/features/physics/static-electricity/StaticElectricityChapterView"),
   { loading: () => <SectionLoader /> },
 );
 
-
-// 
 const CurrentElectricityChapterView = dynamic(
-  () => import("@/features/physics/current-electricity/CurrentElectricityChapterView"),
+  () =>
+    import("@/features/physics/current-electricity/CurrentElectricityChapterView"),
   { loading: () => <SectionLoader /> },
 );
-// 
+
 const MagneticEffectsChapterView = dynamic(
-  () => import("@/features/physics/magnetic-effects/MagneticEffectsChapterView"),
+  () =>
+    import("@/features/physics/magnetic-effects/MagneticEffectsChapterView"),
   { loading: () => <SectionLoader /> },
-  
 );
-// 
+
 const ModernPhysicsChapterView = dynamic(
   () => import("@/features/physics/modern-physics/ModernPhysicsChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const PhysicsToSaveLifeChapterView = dynamic(
+  () =>
+    import("@/features/physics/physics-to-save-life/PhysicsToSaveLifeChapterView"),
   { loading: () => <SectionLoader /> },
 );
 
@@ -107,6 +116,12 @@ const ModernPhysicsChapterView = dynamic(
 const ConceptOfChemistryChapterView = dynamic(
   () =>
     import("@/features/chemistry/concept-of-chemistry/ConceptOfChemistryChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const StatesOfMatterChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/states-of-matter/StatesOfMatterChapterView"),
   { loading: () => <SectionLoader /> },
 );
 
@@ -127,18 +142,46 @@ const ChemicalBondingChapterView = dynamic(
   { loading: () => <SectionLoader /> },
 );
 
-const StatesOfMatterChapterView = dynamic(
-  () =>
-    import("@/features/chemistry/states-of-matter/StatesOfMatterChapterView"),
-  { loading: () => <SectionLoader /> },
-);
-
-//
 const MoleConceptChapterView = dynamic(
   () => import("@/features/chemistry/mole-concept/MoleConceptChapterView"),
   { loading: () => <SectionLoader /> },
 );
-//
+
+const ChemicalReactionsChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/chemical-reactions/ChemicalReactionsChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const ChemistryAndEnergyChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/chemistry-and-energy/ChemistryAndEnergyChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const AcidBaseBalanceChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/acid-base-balance/AcidBaseBalanceChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const MineralResourcesMetalChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/mineral-resources-metal/MineralResourcesMetalChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const MineralResourcesFossilsChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/mineral-resources-fossils/MineralResourcesFossilsChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const ChemistryInOurLifeChapterView = dynamic(
+  () =>
+    import("@/features/chemistry/chemistry-in-our-life/ChemistryInOurLifeChapterView"),
+  { loading: () => <SectionLoader /> },
+);
 
 // ============================================
 // INTERACTIVE PHYSICS LABS
@@ -174,58 +217,45 @@ const HeatSimulationLab = dynamic(
   { loading: () => <SectionLoader />, ssr: false },
 );
 
+const WavesAndSoundLab = dynamic(
+  () => import("@/features/physics/waves-and-sound/WavesAndSoundLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
 const ReflectionOfLightLab = dynamic(
   () => import("@/features/physics/reflection-of-light/ReflectionOfLightLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
-// 
+
 const RefractionOfLightLab = dynamic(
   () => import("@/features/physics/refraction-of-light/RefractionOfLightLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
 
-
-
-const RefractionOfLightChapterView = dynamic(
-  () =>
-    import("@/features/physics/refraction-of-light/RefractionOfLightChapterView"),
-  { loading: () => <SectionLoader /> },
-);
-
-
-
-// 
 const StaticElectricityLab = dynamic(
   () => import("@/features/physics/static-electricity/StaticElectricityLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
-// 
+
 const CurrentElectricityLab = dynamic(
   () => import("@/features/physics/current-electricity/CurrentElectricityLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
-// 
+
 const MagneticEffectsLab = dynamic(
   () => import("@/features/physics/magnetic-effects/MagneticEffectsLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
-// 
+
 const ModernPhysicsLab = dynamic(
   () => import("@/features/physics/modern-physics/ModernPhysicsLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
-// 
-const PhysicsToSaveLifeChapterView = dynamic(
-  () => import("@/features/physics/physics-to-save-life/PhysicsToSaveLifeChapterView"),
-  { loading: () => <SectionLoader /> },
-);
-// 
+
 const PhysicsToSaveLifeLab = dynamic(
   () => import("@/features/physics/physics-to-save-life/PhysicsToSaveLifeLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
-
-
 
 // ============================================
 // CHEMISTRY & BIOLOGY LABS
@@ -235,10 +265,12 @@ const HazardSymbolsLab = dynamic(
   () => import("@/features/chemistry/concept-of-chemistry/HazardSymbolsLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
+
 const StatesOfMatterLab = dynamic(
   () => import("@/features/chemistry/states-of-matter/StatesOfMatterLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
+
 const AtomStructureLab = dynamic(
   () => import("@/features/chemistry/AtomStructureLab"),
   { loading: () => <SectionLoader />, ssr: false },
@@ -254,17 +286,47 @@ const ChemicalBondingLab = dynamic(
   { loading: () => <SectionLoader />, ssr: false },
 );
 
-//
 const MoleConceptLab = dynamic(
   () => import("@/features/chemistry/mole-concept/MoleConceptLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
-//
-const WavesAndSoundLab = dynamic(
-  () => import("@/features/physics/waves-and-sound/WavesAndSoundLab"),
+
+const ChemicalReactionsLab = dynamic(
+  () => import("@/features/chemistry/chemical-reactions/ChemicalReactionsLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
 
+const ChemistryAndEnergyLab = dynamic(
+  () =>
+    import("@/features/chemistry/chemistry-and-energy/ChemistryAndEnergyLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const AcidBaseBalanceLab = dynamic(
+  () => import("@/features/chemistry/acid-base-balance/AcidBaseBalanceLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const MineralResourcesMetalLab = dynamic(
+  () =>
+    import("@/features/chemistry/mineral-resources-metal/MineralResourcesMetalLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const MineralResourcesFossilsLab = dynamic(
+  () =>
+    import("@/features/chemistry/mineral-resources-fossils/MineralResourcesFossilsLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+// 
+const ChemistryInOurLifeLab = dynamic(
+  () =>
+    import("@/features/chemistry/chemistry-in-our-life/ChemistryInOurLifeLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+
+// Biology
 const CellThreeDExplorer = dynamic(
   () => import("@/features/biology/CellThreeDExplorer"),
   { loading: () => <SectionLoader />, ssr: false },
@@ -361,41 +423,40 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
       case "effect-of-heat-on-matter":
       case "effects-of-heat-on-matter":
         return <HeatChapterView />;
-      //
 
       case "waves-and-sound":
       case "wave-and-sound":
       case "waves":
         return <WavesAndSoundChapterView />;
-      //
+
       case "reflection-of-light":
       case "light-reflection":
         return <ReflectionOfLightChapterView />;
-      //
+
       case "refraction-of-light":
       case "light-refraction":
         return <RefractionOfLightChapterView />;
-        // 
-        case "static-electricity":
+
+      case "static-electricity":
       case "electrostatics":
         return <StaticElectricityChapterView />;
-        // 
-        case "current-electricity":
+
+      case "current-electricity":
       case "electricity":
         return <CurrentElectricityChapterView />;
-        // 
-         case "magnetic-effects":
+
+      case "magnetic-effects":
       case "magnetic-effects-of-current":
       case "magnetic-effect-of-current":
         return <MagneticEffectsChapterView />;
-        case "modern-physics":
+
+      case "modern-physics":
       case "modern-physics-and-electronics":
         return <ModernPhysicsChapterView />;
-        // 
-        case "physics-to-save-life":
+
+      case "physics-to-save-life":
       case "life-and-physics":
         return <PhysicsToSaveLifeChapterView />;
-        // 
 
       // Chemistry
       case "concept-of-chemistry":
@@ -422,6 +483,42 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
       case "mole-concept-and-chemical-calculations":
         return <MoleConceptChapterView />;
 
+      case "chemical-reactions":
+      case "chemical-reaction":
+        return <ChemicalReactionsChapterView />;
+
+      case "chemistry-and-energy":
+      case "chemistry-energy":
+        return <ChemistryAndEnergyChapterView />;
+
+      case "acid-base-balance":
+      case "acid-base":
+        return <AcidBaseBalanceChapterView />;
+
+      case "mineral-resources-metal":
+      case "mineral-resources-metal-nonmetal":
+      case "mineral-resources-metals-nonmetals":
+      case "mineral-resources-metal-and-nonmetal":
+      case "mineral-resources-metals-and-nonmetals":
+      case "mineral-resources":
+        return <MineralResourcesMetalChapterView />;
+
+      case "mineral-resources-fossils":
+      case "mineral-resources-fossil":
+      case "mineral-resources-fossil-fuels":
+      case "fossils":
+        return <MineralResourcesFossilsChapterView />;
+
+      case "chemistry-in-our-life":
+      case "chemistry-in-our-lives":
+      case "chemistry-in-everyday-life":
+      case "chemistry-in-daily-life":
+      case "chemistry-in-life":
+      case "everyday-chemistry":
+      case "chemistry-and-life":
+      case "chemistry-life":
+        return <ChemistryInOurLifeChapterView />;
+
       // Biology
       case "cells-and-tissues":
         return <CellThreeDExplorer />;
@@ -432,6 +529,9 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
             <h2 className="mb-2 text-xl font-bold text-slate-900">
               {chapter.title}
             </h2>
+            <p className="mb-2 font-mono text-xs text-rose-600">
+              Current Slug: &quot;{chapterSlug}&quot;
+            </p>
             <p className="leading-relaxed text-slate-600">
               {chapter.description ||
                 "এই অধ্যায়ের বিস্তারিত পাঠ ও ইন্টারঅ্যাক্টিভ সিমুলেশন শীঘ্রই যুক্ত হচ্ছে।"}
@@ -471,36 +571,40 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
       case "effect-of-heat-on-matter":
       case "effects-of-heat-on-matter":
         return <HeatSimulationLab />;
-      //
+
+      case "waves-and-sound":
+      case "wave-and-sound":
+      case "waves":
+        return <WavesAndSoundLab />;
+
       case "reflection-of-light":
       case "light-reflection":
         return <ReflectionOfLightLab />;
-      //
+
       case "refraction-of-light":
       case "light-refraction":
         return <RefractionOfLightLab />;
-        // 
-case "static-electricity":
+
+      case "static-electricity":
       case "electrostatics":
         return <StaticElectricityLab />;
-        // 
-        case "current-electricity":
+
+      case "current-electricity":
       case "electricity":
         return <CurrentElectricityLab />;
-        // 
-        case "magnetic-effects":
+
+      case "magnetic-effects":
       case "magnetic-effects-of-current":
       case "magnetic-effect-of-current":
         return <MagneticEffectsLab />;
-        // 
-        case "modern-physics":
+
+      case "modern-physics":
       case "modern-physics-and-electronics":
         return <ModernPhysicsLab />;
-        // 
-        case "physics-to-save-life":
+
+      case "physics-to-save-life":
       case "life-and-physics":
         return <PhysicsToSaveLifeLab />;
-       
 
       // Chemistry
       case "concept-of-chemistry":
@@ -527,11 +631,41 @@ case "static-electricity":
       case "mole-concept-and-chemical-calculations":
         return <MoleConceptLab />;
 
-      //
-      case "waves-and-sound":
-      case "wave-and-sound":
-      case "waves":
-        return <WavesAndSoundLab />;
+      case "chemical-reactions":
+      case "chemical-reaction":
+        return <ChemicalReactionsLab />;
+
+      case "chemistry-and-energy":
+      case "chemistry-energy":
+        return <ChemistryAndEnergyLab />;
+
+      case "acid-base-balance":
+      case "acid-base":
+        return <AcidBaseBalanceLab />;
+
+      case "mineral-resources-metal":
+      case "mineral-resources-metal-nonmetal":
+      case "mineral-resources-metals-nonmetals":
+      case "mineral-resources-metal-and-nonmetal":
+      case "mineral-resources-metals-and-nonmetals":
+      case "mineral-resources":
+        return <MineralResourcesMetalLab />;
+
+      case "mineral-resources-fossils":
+      case "mineral-resources-fossil":
+      case "mineral-resources-fossil-fuels":
+      case "fossils":
+        return <MineralResourcesFossilsLab />;
+
+      case "chemistry-in-our-life":
+      case "chemistry-in-our-lives":
+      case "chemistry-in-everyday-life":
+      case "chemistry-in-daily-life":
+      case "chemistry-in-life":
+      case "everyday-chemistry":
+      case "chemistry-and-life":
+      case "chemistry-life":
+        return <ChemistryInOurLifeLab />;
 
       // Biology
       case "cells-and-tissues":
