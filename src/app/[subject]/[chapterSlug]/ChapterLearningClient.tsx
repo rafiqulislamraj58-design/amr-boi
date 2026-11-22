@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
@@ -109,6 +109,13 @@ const PhysicsToSaveLifeChapterView = dynamic(
   { loading: () => <SectionLoader /> },
 );
 
+const BiotechnologyChapterView = dynamic(
+  () => import("@/features/biology/biotechnology/BiotechnologyChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+
+
 // ============================================
 // CHEMISTRY CHAPTER VIEWS
 // ============================================
@@ -182,45 +189,81 @@ const ChemistryInOurLifeChapterView = dynamic(
     import("@/features/chemistry/chemistry-in-our-life/ChemistryInOurLifeChapterView"),
   { loading: () => <SectionLoader /> },
 );
-// boilogy  cahpter  view
+
+// ============================================
+// BIOLOGY CHAPTER VIEWS
+// ============================================
+
 const LessonsOnLifeChapterView = dynamic(
   () => import("@/features/biology/lessons-on-life/LessonsOnLifeChapterView"),
   { loading: () => <SectionLoader /> },
 );
+
 const CellsAndTissuesChapterView = dynamic(
   () => import("@/features/biology/cells-and-tissues/CellsAndTissuesChapterView"),
   { loading: () => <SectionLoader /> },
 );
-
-const CellsAndTissuesLab = dynamic(
-  () => import("@/features/biology/cells-and-tissues/CellsAndTissuesLab"),
-  { loading: () => <SectionLoader />, ssr: false },
-);
-
 
 const CellDivisionChapterView = dynamic(
   () => import("@/features/biology/cell-division/CellDivisionChapterView"),
   { loading: () => <SectionLoader /> },
 );
 
-// 
 const BioenergeticsChapterView = dynamic(
   () => import("@/features/biology/bioenergetics/BioenergeticsChapterView"),
   { loading: () => <SectionLoader /> },
 );
-// 
+
 const FoodNutritionDigestionChapterView = dynamic(
   () =>
     import("@/features/biology/food-nutrition-digestion/FoodNutritionDigestionChapterView"),
   { loading: () => <SectionLoader /> },
 );
 
-
 const TransportInOrganismsChapterView = dynamic(
   () =>
     import("@/features/biology/transport-in-organisms/TransportInOrganismsChapterView"),
   { loading: () => <SectionLoader /> },
 );
+
+const ExchangeOfGasesChapterView = dynamic(
+  () =>
+    import("@/features/biology/exchange-of-gases/ExchangeOfGasesChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const ExcretionChapterView = dynamic(
+  () => import("@/features/biology/excretion/ExcretionChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+const SupportAndMovementChapterView = dynamic(
+  () =>
+    import("@/features/biology/support-and-movement/SupportAndMovementChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+
+
+const CoordinationChapterView = dynamic(
+  () => import("@/features/biology/coordination/CoordinationChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+
+// 
+const ReproductionChapterView = dynamic(
+  () => import("@/features/biology/reproduction/ReproductionChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+// 
+const EnvironmentOfLifeChapterView = dynamic(
+  () =>
+    import("@/features/biology/environment-of-life/EnvironmentOfLifeChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+
 
 // ============================================
 // INTERACTIVE PHYSICS LABS
@@ -296,8 +339,15 @@ const PhysicsToSaveLifeLab = dynamic(
   { loading: () => <SectionLoader />, ssr: false },
 );
 
+const BiotechnologyLab = dynamic(
+  () => import("@/features/biology/biotechnology/BiotechnologyLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+
+
 // ============================================
-// CHEMISTRY & BIOLOGY LABS
+// CHEMISTRY LABS
 // ============================================
 
 const HazardSymbolsLab = dynamic(
@@ -357,15 +407,23 @@ const MineralResourcesFossilsLab = dynamic(
     import("@/features/chemistry/mineral-resources-fossils/MineralResourcesFossilsLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
-// 
+
 const ChemistryInOurLifeLab = dynamic(
   () =>
     import("@/features/chemistry/chemistry-in-our-life/ChemistryInOurLifeLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
 
+const EnvironmentOfLifeLab = dynamic(
+  () =>
+    import("@/features/biology/environment-of-life/EnvironmentOfLifeLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
 
-// Biology
+// ============================================
+// BIOLOGY LABS
+// ============================================
+
 const CellThreeDExplorer = dynamic(
   () => import("@/features/biology/CellThreeDExplorer"),
   { loading: () => <SectionLoader />, ssr: false },
@@ -376,11 +434,15 @@ const LessonsOnLifeLab = dynamic(
   { loading: () => <SectionLoader />, ssr: false },
 );
 
+const CellsAndTissuesLab = dynamic(
+  () => import("@/features/biology/cells-and-tissues/CellsAndTissuesLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
 const CellDivisionLab = dynamic(
   () => import("@/features/biology/cell-division/CellDivisionLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
-
 
 const BioenergeticsLab = dynamic(
   () => import("@/features/biology/bioenergetics/BioenergeticsLab"),
@@ -393,12 +455,53 @@ const FoodNutritionDigestionLab = dynamic(
   { loading: () => <SectionLoader />, ssr: false },
 );
 
-
 const TransportInOrganismsLab = dynamic(
   () =>
     import("@/features/biology/transport-in-organisms/TransportInOrganismsLab"),
   { loading: () => <SectionLoader />, ssr: false },
 );
+
+const ExchangeOfGasesLab = dynamic(
+  () => import("@/features/biology/exchange-of-gases/ExchangeOfGasesLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const ExcretionLab = dynamic(
+  () => import("@/features/biology/excretion/ExcretionLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+const SupportAndMovementLab = dynamic(
+  () =>
+    import("@/features/biology/support-and-movement/SupportAndMovementLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+
+const CoordinationLab = dynamic(
+  () => import("@/features/biology/coordination/CoordinationLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+
+// 
+const ReproductionLab = dynamic(
+  () => import("@/features/biology/reproduction/ReproductionLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+// 
+const HeredityChapterView = dynamic(
+  () => import("@/features/biology/heredity/HeredityChapterView"),
+  { loading: () => <SectionLoader /> },
+);
+
+// 
+const HeredityLab = dynamic(
+  () => import("@/features/biology/heredity/HeredityLab"),
+  { loading: () => <SectionLoader />, ssr: false },
+);
+
+
 
 // ============================================
 // UNIVERSAL ENGINES
@@ -460,6 +563,10 @@ const TABS: TabItem[] = [
 export default function ChapterLearningClient({ subject, chapter }: Props) {
   const [activeTab, setActiveTab] = useState<TabId>("lesson");
   const chapterSlug = chapter.slug.trim().toLowerCase();
+
+  useEffect(() => {
+    setActiveTab("lesson");
+  }, [chapterSlug]);
 
   // ==========================================
   // LESSON CONTENT
@@ -588,7 +695,6 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
         return <ChemistryInOurLifeChapterView />;
 
       // Biology
-    
       case "lessons-on-life":
       case "lesson-on-life":
       case "life-lessons":
@@ -599,31 +705,73 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
       case "cells-and-tissues-of-organisms":
         return <CellsAndTissuesChapterView />;
 
-        case "cell-division":
+      case "cell-division":
       case "cell-divisions":
         return <CellDivisionChapterView />;
 
-
-        case "bioenergetics":
+      case "bioenergetics":
       case "bio-energetics":
       case "life-energy":
         return <BioenergeticsChapterView />;
 
-
-        case "food-nutrition-and-digestion":
+      case "food-nutrition-and-digestion":
       case "food-nutrition-digestion":
       case "nutrition-and-digestion":
         return <FoodNutritionDigestionChapterView />;
 
-        case "transport-in-organisms":
+      case "transport-in-organisms":
       case "transport-in-organism":
       case "transportation-in-organisms":
         return <TransportInOrganismsChapterView />;
 
+      case "exchange-of-gases":
+      case "exchange-of-gas":
+      case "gaseous-exchange":
+        return <ExchangeOfGasesChapterView />;
 
+      case "excretion-in-organisms":
+      case "excretion":
+      case "excretion-in-organism":
+      case "excretion-process":
+      case "excretory-system":
+        return <ExcretionChapterView />;
+
+      case "support-and-movement-in-organisms":
+      case "support-and-movement":
+      case "locomotion-and-movement":
+      case "support-and-locomotion":
+      case "firmness-and-locomotion":
+        return <SupportAndMovementChapterView />;
+
+
+        case "coordination":
+      case "coordination-in-organisms":
+      case "coordination-in-organism":
+        return <CoordinationChapterView />;
+// 
+ case "heredity-and-evolution":
+      case "heredity-in-organisms-and-evolution":
+      case "heredity-in-organisms":
+        return <HeredityChapterView />;
+
+        // 
+        case "reproduction":
+      case "reproduction-in-organisms":
+      case "reproduction-in-organism":
+        return <ReproductionChapterView />;
+        // 
+        case "environment-of-life":
+      case "environment-of-organisms":
+      case "organisms-and-environment":
+      case "ecosystem":
+        return <EnvironmentOfLifeChapterView />;
+        // 
+        case "biotechnology":
+      case "bio-technology":
+        return <BiotechnologyChapterView />;
         
 
-
+        
 
       default:
         return (
@@ -775,35 +923,82 @@ export default function ChapterLearningClient({ subject, chapter }: Props) {
       case "life-lessons":
         return <LessonsOnLifeLab />;
 
-        case "cells-and-tissues":
+      case "cells-and-tissues":
       case "cell-and-tissue":
       case "cells-and-tissues-of-organisms":
         return <CellsAndTissuesLab />;
 
+      case "cells-and-tissues-3d":
+        return <CellThreeDExplorer />;
 
-        case "cell-division":
+      case "cell-division":
       case "cell-divisions":
         return <CellDivisionLab />;
 
-
-        case "bioenergetics":
+      case "bioenergetics":
       case "bio-energetics":
       case "life-energy":
         return <BioenergeticsLab />;
-        // 
-        case "food-nutrition-and-digestion":
+
+      case "food-nutrition-and-digestion":
       case "food-nutrition-digestion":
       case "nutrition-and-digestion":
         return <FoodNutritionDigestionLab />;
 
-        case "transport-in-organisms":
+      case "transport-in-organisms":
       case "transport-in-organism":
       case "transportation-in-organisms":
         return <TransportInOrganismsLab />;
-      
-        // aditional
-      case "cells-and-tissues":
-        return <CellThreeDExplorer />;
+
+      case "exchange-of-gases":
+      case "exchange-of-gas":
+      case "gaseous-exchange":
+        return <ExchangeOfGasesLab />;
+
+      case "excretion-in-organisms":
+      case "excretion":
+      case "excretion-in-organism":
+      case "excretion-process":
+      case "excretory-system":
+        return <ExcretionLab />;
+
+      case "support-and-movement-in-organisms":
+      case "support-and-movement":
+      case "locomotion-and-movement":
+      case "support-and-locomotion":
+      case "firmness-and-locomotion":
+        return <SupportAndMovementLab />;
+
+        case "coordination":
+      case "coordination-in-organisms":
+      case "coordination-in-organism":
+        return <CoordinationLab />;
+        // 
+        case "environment-of-life":
+      case "environment-of-organisms":
+      case "organisms-and-environment":
+      case "ecosystem":
+        return <EnvironmentOfLifeLab />;
+        case "heredity":
+     
+
+
+
+        case "reproduction":
+      case "reproduction-in-organisms":
+      case "reproduction-in-organism":
+        return <ReproductionLab />;
+        // 
+        case "heredity":
+      case "heredity-and-evolution":
+      case "heredity-in-organisms-and-evolution":
+      case "heredity-in-organisms":
+        return <HeredityLab />;
+        // 
+        case "biotechnology":
+      case "bio-technology":
+        return <BiotechnologyLab />;
+
 
       default:
         return (
